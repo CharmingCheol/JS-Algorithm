@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(array, commands) {
+        const result = commands.reduce((acc, value) => {
+          const [left, right, cut] = value;
+          const arr = [...array]
+            .splice(left - 1, right - left + 1)
+            .sort((a, b) => a - b)
+            .splice(cut - 1, 1);
+          return [...acc, ...arr];
+        }, []);
+        return result;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //   function solution(arr) {
+      //     const result = [];
+      //     let memory = -1;
+      //     for (const data of arr) {
+      //       if (data !== memory) {
+      //         result.push(data);
+      //         memory = data;
+      //       }
+      //     }
+      //     return result;
+      //   }
+      //   console.log(solution([4, 4, 4, 3, 3]));
+      function solution(arr) {
+        return arr.filter((value, index) => value !== arr[index + 1]);
+      }
+      console.log(solution([4, 4, 4, 3, 3]));
+    </script>
+  </body>
+</html>

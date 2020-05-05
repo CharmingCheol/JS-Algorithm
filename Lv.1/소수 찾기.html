@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(n) {
+        const numbers = (arr) => {
+          for (let i = 0; i <= arr.length; i++) {
+            // arr[i]이 true일 경우
+            if (arr[i]) {
+              /* j값 갱신
+                > step은 i를 더한 만큼 갱신하였습니다.
+                > i = 2일 경우
+                  j = 2,4,6,8,10,12,14,16,18,20
+                > i = 3일 경우
+                  j = 3, 9, 15
+                */
+              for (let j = i * 2; j <= arr.length; j += i) {
+                arr[j] = false;
+              }
+            }
+          }
+          return arr;
+        };
+        /* 에라토스테네스의 체
+          > false 2개는 각각 0과 1을 의미. n의 범위까지 ture를 배열에 추가해줌
+        */
+        const answer = numbers([false, false, ...Array(n - 1).fill(true)]);
+        //true 값 갯수를 더하였습니다.
+        return answer.reduce((acc, value) => (value ? acc + 1 : acc), 0);
+      }
+      console.log(solution(5));
+    </script>
+  </body>
+</html>
+
+<!-- https://programmers.co.kr/learn/courses/30/lessons/12921
+     [문제]
+      > 0부터 N이하의 자연수에서 소수를 찾는 문제입니다.
+      > N의 숫자가 작으면 속도에 영향이 없겠지만, 수가 커질수록 연산 속도가 느려지게 됩니다.
+      > N의 최댓값은 1000000이기 때문에 연산 횟수를 어떻게 줄이는지가 중요한 문제입니다 -->
