@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(s) {
+        let index = 0;
+        var answer = [...s]
+          .reduce((acc, value) => {
+            if (value === " ") {
+              index = 0;
+              return [...acc, value];
+            }
+            index += 1;
+            return index % 2
+              ? [...acc, value.toUpperCase()]
+              : [...acc, value.toLowerCase()];
+          }, [])
+          .join("");
+        return answer;
+      }
+      console.log(solution("try hello world"));
+    </script>
+  </body>
+</html>

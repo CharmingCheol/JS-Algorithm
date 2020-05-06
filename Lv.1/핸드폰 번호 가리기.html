@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(phone_number) {
+        return [...phone_number]
+          .map((value, index) =>
+            index >= phone_number.length - 4 ? value : "*"
+          )
+          .join("");
+      }
+      console.log(solution("01033334444"));
+      console.log(solution("027778888"));
+    </script>
+  </body>
+</html>
