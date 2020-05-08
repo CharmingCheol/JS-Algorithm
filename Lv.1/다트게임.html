@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const split = (arr) => {
+        let result = [];
+        if (arr.includes("#") || arr.includes("*")) {
+          console.log(arr.split(/([0-9]+[SDT|#|*]+)/g));
+          result = arr.split(/([0-9]+[SDT|#|*]+)/g);
+        } else {
+          result = arr.split(/([0-9]+[SDT]+)/g);
+        }
+        return result.reduce(
+          (acc, value) => (value !== "" ? [...acc, value] : acc),
+          []
+        );
+      };
+
+      function solution(dartResult) {
+        const sdt = { S: 1, D: 2, T: 3 };
+        const splitArray = split(dartResult);
+        const result = splitArray
+          .reduce((acc, value, index) => {
+            let num = Math.pow(
+              value.match(/[0-9]+/),
+              sdt[value.match(/[A-Z]/)]
+            );
+            if (value.includes("*")) {
+              num *= 2;
+            } else if (value.includes("#")) {
+              num *= -1;
+            }
+            return splitArray[index + 1] && splitArray[index + 1].includes("*")
+              ? [...acc, num * 2]
+              : [...acc, num];
+          }, [])
+          .reduce((acc, value) => acc + value);
+        return result;
+      }
+
+      console.log(solution("1S2D*3T"));
+      console.log(solution("1D2S#10S"));
+      console.log(solution("1D2S0T"));
+      console.log(solution("1S*2T*3S"));
+      console.log(solution("1D#2S*3S"));
+      console.log(solution("1T2D3D#"));
+      console.log(solution("1D2S3T*"));
+    </script>
+  </body>
+</html>
