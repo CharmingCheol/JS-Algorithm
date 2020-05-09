@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(priorities, location) {
+        const changeArray = priorities.reduce(
+          (acc, value, index) =>
+            index === location
+              ? [...acc, { value, index }]
+              : [...acc, { value }],
+          []
+        );
+        let count = 0;
+        while (true) {
+          const shift = changeArray.shift();
+          if (changeArray.find((compare) => shift.value < compare.value)) {
+            changeArray.push(shift);
+          } else {
+            count += 1;
+            if (shift.index === location) {
+              return count;
+            }
+          }
+        }
+        return count;
+      }
+      console.log(solution([2, 1, 3, 2], 2));
+      console.log(solution([1, 1, 9, 1, 1, 1], 0));
+    </script>
+  </body>
+</html>

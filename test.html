@@ -7,11 +7,21 @@
   </head>
   <body>
     <script>
-      function solution(arr) {
-        return arr.reduce((acc, value) => acc + value) / arr.length;
+      function solution(numbers) {
+        var answer = "";
+        console.log(numbers.sort((a, b) => String(a) < String(b)));
+        return answer;
       }
-      console.log(solution([1, 2, 3, 4]));
-      console.log(solution([5, 5]));
+      console.log(solution([6, 10, 2]));
+      // console.log(solution([3, 30, 34, 5, 9]));
     </script>
   </body>
 </html>
+
+<!-- 
+  aabbaccc ->2a2ba3c
+  ababcdcdababcdcd -> 2ababcdcd
+  abcabcdede -> 2abcdede
+  abcabcabcabcdededededede -> 2abcabcdededededede
+  xababcdcdababcdcd -> xababcdcdababcdcd
+ -->

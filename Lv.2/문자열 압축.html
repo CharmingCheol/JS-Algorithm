@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(arr) {
+        const result = [];
+        if (arr.length === 1) return 1;
+
+        for (let index = 1; index <= arr.length / 2; index++) {
+          const regExpArr = arr
+            .split(new RegExp("([a-z]{" + index + "})"))
+            .reduce(
+              (acc, value) => (value === "" ? [...acc] : [...acc, value]),
+              []
+            );
+          let count = 1;
+          const push = regExpArr.reduce((acc, value, index) => {
+            if (value === regExpArr[index + 1]) {
+              count += 1;
+              return acc;
+            } else {
+              let reset = count;
+              count = 1;
+              return reset === 1 ? acc + value : acc + reset + value;
+            }
+          }, "");
+          result.push(push.length);
+        }
+
+        return result.reduce((acc, value) => (acc < value ? acc : value));
+      }
+      console.log(solution("r"));
+      console.log(solution("aabbaccc"));
+      console.log(solution("ababcdcdababcdcd"));
+      console.log(solution("abcabcdede"));
+      console.log(solution("abcabcabcabcdededededede"));
+      console.log(solution("xababcdcdababcdcd"));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(heights) {
+        return heights.reverse().reduce((acc, short, index) => {
+          const aa = heights.findIndex((hight) => short < heights[++index]);
+          return aa !== -1 ? [heights.length - index, ...acc] : [0, ...acc];
+        }, []);
+      }
+      console.log(solution([6, 9, 5, 7, 4]));
+      console.log(solution([3, 9, 9, 3, 5, 7, 2]));
+      console.log(solution([1, 5, 3, 6, 7, 6, 5]));
+    </script>
+  </body>
+</html>
