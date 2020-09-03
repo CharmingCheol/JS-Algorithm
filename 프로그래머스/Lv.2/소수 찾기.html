@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 에라토스테네스의 체로 소수 리스트 구하기
+      const calcPrime = () => {
+        const maxLimit = 10000000;
+        let arr = Array(maxLimit).fill(true).fill(false, 0, 2);
+        for (let i = 2; i * i <= maxLimit; i++) {
+          if (arr[i]) {
+            for (let j = i * i; j <= maxLimit; j += i) {
+              arr[j] = false;
+            }
+          }
+        }
+        return arr;
+      };
+
+      let globalNum = 0;
+      let is_zero = "";
+      let set = new Set();
+
+      // 깊이 우선 탐색으로 수열 계산하기
+      const DFS = (index, total) => {
+        if (index === globalNum.length) {
+          const stripZero = total[0] === "0" ? total.replace(/^0*/, "") : total;
+          set.add(stripZero);
+          return;
+        }
+        for (let i = 0; i < is_zero.length; i++) {
+          if (is_zero[i] === 0) {
+            is_zero[i] = 1;
+            DFS(index + 1, total + globalNum[i]);
+            is_zero[i] = 0;
+          } else {
+            DFS(index + 1, total);
+          }
+        }
+      };
+
+      function solution(numbers) {
+        globalNum = numbers;
+        is_zero = Array(globalNum.length).fill(0);
+        DFS(0, "");
+
+        let count = 0;
+        const prime = calcPrime();
+        for (const item of set) {
+          if (prime[parseInt(item)]) {
+            count += 1;
+          }
+        }
+        return count;
+      }
+      solution("17");
+    </script>
+  </body>
+</html>

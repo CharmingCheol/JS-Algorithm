@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(progresses, speeds) {
+        const answer = [];
+        let point = -1;
+        let temp = 0;
+        let index = 0;
+        for (const work of progresses) {
+          if (Math.ceil((100 - work) / speeds[index]) <= temp) {
+            answer[point] += 1;
+          } else {
+            temp = Math.ceil((100 - work) / speeds[index]);
+            point += 1;
+            answer.push(1);
+          }
+          index += 1;
+        }
+        return answer;
+      }
+      solution([93, 30, 55], [1, 30, 5]);
+      solution([95, 90, 99, 99, 80, 99], [1, 1, 1, 1, 1, 1]);
+    </script>
+  </body>
+</html>
