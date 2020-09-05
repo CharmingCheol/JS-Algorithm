@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function calcGCD(a, b) {
+        let temp = 0;
+        let n = 0;
+        if (a < b) {
+          temp = a;
+          a = b;
+          b = temp;
+        }
+        while (b !== 0) {
+          n = a % b;
+          a = b;
+          b = n;
+        }
+        return a;
+      }
+      function solution(width, height) {
+        const gcd = calcGCD(width, height);
+        const cutLine = width + height - gcd;
+        return width * height - cutLine;
+      }
+      solution(8, 12);
+    </script>
+  </body>
+</html>
