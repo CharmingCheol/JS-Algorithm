@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(record) {
+        const result = [];
+        const userMap = new Map();
+
+        for (const item of record) {
+          const [status, uid, name] = item.split(" ");
+          if (status === "Enter" || status === "Change") userMap.set(uid, name);
+        }
+        for (const item of record) {
+          const [status, uid] = item.split(" ");
+          const push_name = userMap.get(uid);
+          if (status === "Enter") {
+            result.push(`${push_name}님이 들어왔습니다.`);
+          } else if (status === "Leave") {
+            result.push(`${push_name}님이 나갔습니다.`);
+          }
+        }
+        return result;
+      }
+      solution([
+        "Enter uid1234 Muzi",
+        "Enter uid4567 Prodo",
+        "Leave uid1234",
+        "Enter uid1234 Prodo",
+        "Change uid4567 Ryan",
+      ]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(s) {
+        const answer = true;
+        const stack = [];
+        if (s[0] === ")") return false;
+        for (const item of s) {
+          item === "(" ? stack.push(item) : stack.pop();
+        }
+        return stack.length == 0 ? true : false;
+      }
+      console.log(solution("()()"));
+      //   console.log(solution(")()("));
+    </script>
+  </body>
+</html>

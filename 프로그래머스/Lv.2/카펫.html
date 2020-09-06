@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(brown, yellow) {
+        const area = brown + yellow;
+        for (let index = area; index >= 1; index--) {
+          if (area % index === 0) {
+            const width = index;
+            const height = area / index;
+            if ((width - 2) * (height - 2) === yellow) {
+              return [width, height];
+            }
+          }
+        }
+      }
+      console.log(solution(10, 2));
+    </script>
+  </body>
+</html>
+<!-- 
+    1.brown과 yellow를 곱하고, 그 수의 약수들을 다 구한다
+    2.각 수를 2씩 빼준 다음 곱해서 그 수가 yellow와 같은지 비교한다
+ -->
