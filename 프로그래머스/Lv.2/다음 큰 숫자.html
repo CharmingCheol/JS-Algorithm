@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(n) {
+        let answer = n + 1;
+        const binary_n = n.toString(2).match(/1/g).length;
+        while (true) {
+          const binary_next = answer.toString(2).match(/1/g).length;
+          if (binary_n === binary_next) break;
+          answer += 1;
+        }
+        return answer;
+      }
+      solution(78);
+    </script>
+  </body>
+</html>
+<!-- 
+    1.10진수인 n을 2진수로 변환한다
+    2.2진수에서 1의 갯수를 확인한다
+    3.n 기준으로 앞에 있는 수(m)를 계속 쭉쭉 반복한다
+    4.m을 2진수로 변환해서 1의 갯수를 확인한다
+    5.n과 m의 1의 갯수가 동일해지면 반복문 중단
+ -->

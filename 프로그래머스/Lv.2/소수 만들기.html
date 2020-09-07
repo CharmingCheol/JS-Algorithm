@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const prime = calcPrime();
+      let nums = [];
+      let count = 0;
+
+      function calcPrime() {
+        const maxLimit = 50000;
+        let arr = Array(maxLimit).fill(true).fill(false, 0, 2);
+        for (let i = 2; i * i <= maxLimit; i++) {
+          if (arr[i]) {
+            for (let j = i * i; j <= maxLimit; j += i) {
+              arr[j] = false;
+            }
+          }
+        }
+        return arr;
+      }
+
+      function DFS(index, repeat, total) {
+        if (repeat === 3) {
+          if (prime[total]) count += 1;
+          return;
+        }
+        for (let i = index; i < nums.length; i++) {
+          DFS(i + 1, repeat + 1, total + nums[i]);
+        }
+      }
+
+      function solution(num) {
+        nums = num;
+        DFS(0, 0, 0);
+        return count;
+      }
+      solution([1, 2, 3, 4]);
+    </script>
+  </body>
+</html>
