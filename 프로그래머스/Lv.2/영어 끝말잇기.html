@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(n, words) {
+        const check = [words[0]];
+        let last = words[0];
+        let next = 1;
+        let turn = 1;
+
+        for (let i = 1; i < words.length; i++) {
+          const word = words[i];
+          if (last[last.length - 1] === word[0] && !check.includes(word)) {
+            check.push(word);
+            last = word;
+            next += 1;
+            if (next === n) {
+              next = 0;
+              turn += 1;
+            }
+          } else {
+            next += 1;
+            return [next, turn];
+          }
+        }
+        return [0, 0];
+      }
+      console.log(
+        solution(3, [
+          "tank",
+          "kick",
+          "know",
+          "wheel",
+          "land",
+          "dream",
+          "mother",
+          "robot",
+          "tank",
+        ])
+      );
+      console.log(
+        solution(5, [
+          "hello",
+          "observe",
+          "effect",
+          "take",
+          "either",
+          "recognize",
+          "encourage",
+          "ensure",
+          "establish",
+          "hang",
+          "gather",
+          "refer",
+          "reference",
+          "estimate",
+          "executive",
+        ])
+      );
+      console.log(
+        solution(2, ["hello", "one", "even", "never", "now", "world", "draw"])
+      );
+    </script>
+  </body>
+</html>
