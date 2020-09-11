@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const coord = [
+        [0, 0],
+        [0, 1],
+        [1, 0],
+        [1, 1],
+      ];
+
+      function rotateBoard(m, n, board) {
+        const result = [];
+        let temp = "";
+        for (let y = 0; y < n; y++) {
+          let temp = "";
+          for (let x = 0; x < m; x++) {
+            temp += board[m - x - 1][y];
+          }
+          result.push(temp);
+        }
+        return result;
+      }
+
+      function solution(m, n, board) {
+        const rotatedBoard = rotateBoard(m, n, board);
+        let set = [];
+
+        while (true) {
+          for (let y = 0; y < rotatedBoard.length - 1; y++) {
+            for (let x = 0; x < rotatedBoard[y].length - 1; x++) {
+              const icon = coord.map((value) => {
+                const [coord_y, coord_x] = value;
+                return rotatedBoard[coord_y + y][coord_x + x];
+              });
+              if (new Set(icon).size === 1) {
+                coord.forEach((value) => {
+                  const [coord_y, coord_x] = value;
+                  set.push([coord_y + y, coord_x + x]);
+                });
+              }
+            }
+          }
+          if (set.length !== 0) {
+            for (const [y, x] of set) {
+              rotatedBoard[y] = [...rotatedBoard[y]].reduce(
+                (acc, value, index) => {
+                  if (value === rotatedBoard[y][x] && index === x) {
+                    return acc + "0";
+                  } else {
+                    return acc + value;
+                  }
+                },
+                ""
+              );
+            }
+            for (let index = 0; index < rotatedBoard.length; index++) {
+              rotatedBoard[index] = rotatedBoard[index].replace(/0/g, "");
+            }
+            set = [];
+          } else {
+            break;
+          }
+        }
+        const length = rotatedBoard.reduce(
+          (acc, value) => acc + value.length,
+          0
+        );
+        return m * n - length;
+      }
+      solution(4, 5, ["CCBDE", "AAADE", "AAABF", "CCBBF"]);
+      solution(6, 6, [
+        "TTTANT",
+        "RRFACC",
+        "RRRFCC",
+        "TRRRAA",
+        "TTMMMF",
+        "TMMTTJ",
+      ]);
+    </script>
+  </body>
+</html>
