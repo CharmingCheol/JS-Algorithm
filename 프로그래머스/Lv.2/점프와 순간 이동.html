@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 실패1 : dp로 풀이
+      // function solution(n) {
+      //   const dp = Array(n).fill(0);
+      //   dp[1] = 1;
+      //   for (let index = 2; index <= n; index++) {
+      //     const case1 = dp[index - 1];
+      //     if (index % 2 === 0) {
+      //       dp[index] = Math.min(case1 + 1, dp[index / 2]);
+      //     } else {
+      //       dp[index] = case1 + 1;
+      //     }
+      //   }
+      //   return dp[n];
+      // }
+
+      // 실패2 : bfs로 풀이
+      // function solution(n) {
+      //   const queue = [{ index: 1, cost: 1 }];
+      //   const count = [0, 1];
+      //   let flag = false;
+      //   while (flag === false) {
+      //     const { index: now_index, cost: now_cost } = queue.shift();
+      //     const jump = { index: now_index * 2, cost: now_cost };
+      //     const move = { index: now_index + 1, cost: now_cost + 1 };
+      //     const next = [jump, move];
+
+      //     for (const { index: next_index, cost: next_cost } of next) {
+      //       if (next_index <= n && count[next_index] === undefined) {
+      //         count[next_index] = next_cost;
+      //         queue.push({ index: next_index, cost: next_cost });
+      //         if (count[n]) flag = true;
+      //       }
+      //     }
+      //   }
+      //   return count[n];
+      // }
+
+      function solution(n) {
+        let count = 1;
+        while (1 < n) {
+          if (n % 2 === 0) {
+            n /= 2;
+          } else {
+            n -= 1;
+            count += 1;
+          }
+        }
+        return count;
+      }
+      solution(10000000);
+    </script>
+  </body>
+</html>
+<!-- 
+  1.문제 접근 실패
+   - 처음에 간단하게 dp로 하면 한번에 풀리지 않을까?했지만 범위가 1억까지여서 O(1억)이 된다......
+   - 그래서 BFS로 다시 접근했지만, 역시나 연산 횟수를 줄이기에는 실패했다.
+  2.그냥 단순하게 생각
+   - 최대한 2로 많이 나누면 되지 않을까?로 접근했다.
+   - 2로 나눠지면 현재 수를 2로 나누고, 2로 나눠지지 않으면 -1을 해준다.
+   - 이렇게 하니 n이 아무리 커도 수가 기하급수적으로 줄어들게 된다.
+ -->

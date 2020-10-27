@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const move = {
+        U: [-1, 0],
+        D: [1, 0],
+        L: [0, -1],
+        R: [0, 1],
+      };
+
+      function moveToCharacter(command, now) {
+        const [y, x] = move[command];
+        const [now_y, now_x] = now;
+        if (y + now_y < 0) {
+          return [0, now_x + x];
+        } else if (10 < y + now_y) {
+          return [10, now_x + x];
+        } else if (x + now_x < 0) {
+          return [now_y + y, 0];
+        } else if (10 < x + now_x) {
+          return [now_y + y, 10];
+        }
+        return [now_y + y, now_x + x];
+      }
+
+      function solution(dirs) {
+        let now = [5, 5]; // 현재 좌표
+        const board = Array.from(Array(11), () => Array(11).fill(0)); // 좌표평면
+        const path = [...dirs]; // 경로 텍스트를 각각 쪼개서 배열로 변환
+        const newWay = new Set(); // 새로운 길 저장
+
+        for (const command of path) {
+          const [past_y, past_x] = now;
+          now = moveToCharacter(command, now);
+          const [now_y, now_x] = now;
+          const pastCoord = `${past_y}${past_x}`;
+          const nowCoord = `${now_y}${now_x}`;
+          if (
+            !newWay.has(`${pastCoord},${nowCoord}`) &&
+            !newWay.has(`${nowCoord},${pastCoord}`) &&
+            pastCoord !== nowCoord
+          ) {
+            newWay.add(`${pastCoord},${nowCoord}`);
+            newWay.add(`${nowCoord},${pastCoord}`);
+          }
+        }
+        return newWay.size;
+      }
+      solution("LULLLLLLU");
+    </script>
+  </body>
+</html>
