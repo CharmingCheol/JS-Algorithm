@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(n, stations, w) {
+        let start = 0;
+        let count = 0;
+        const notWaved = [];
+        for (const wave of stations) {
+          const next = wave - w - start - 1;
+          if (0 < next) notWaved.push(next);
+          start = wave + w;
+        }
+        if (start < n) notWaved.push(n - start);
+        for (const wave of notWaved) {
+          const waveRange = w * 2 + 1;
+          count += wave % waveRange ? parseInt(wave / waveRange) + 1 : wave / waveRange;
+        }
+        return count;
+      }
+      solution(11, [1, 7], 2);
+      solution(11, [2], 1);
+      solution(11, [1], 1);
+      solution(11, [4, 11], 1);
+      solution(16, [9], 2);
+    </script>
+  </body>
+</html>
+<!-- 
+    1.전파를 받지 않는 범위 구하기
+     - 안테나 위치 - w - start
+     - start = 안테나 위치 + w
+     - 반복문 후에는 n - start를 구해준다(start가 n보다 작을 경우에만)
+
+    2.전파되지 않은 범위에 안테나 세우기
+     - 범위 % w에 나머지가 있다면, 몫 + 1을 해준다
+     - 나머지가 없다면 몫만 구해준다
+ -->
