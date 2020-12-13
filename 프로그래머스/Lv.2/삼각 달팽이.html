@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function getMax(max) {
+        if (max <= 0) return 0;
+        return getMax(max - 1) + max;
+      }
+
+      function drawBoard(board, number, y, x) {
+        const max = getMax(y - 1);
+        const length = board.length;
+        let count = 0;
+        while (count < max) {
+          while (
+            count < max &&
+            0 < y - 1 &&
+            0 < x - 1 &&
+            board[y - 1][x - 1] === -1
+          ) {
+            board[(y -= 1)][(x -= 1)] = number;
+            number += 1;
+            count += 1;
+          }
+          while (count < max && y + 1 < length && board[y + 1][x] === -1) {
+            board[(y += 1)][x] = number;
+            number += 1;
+            count += 1;
+          }
+          while (count < max && x + 1 < length && board[y][x + 1] === -1) {
+            board[y][(x += 1)] = number;
+            number += 1;
+            count += 1;
+          }
+        }
+      }
+
+      function solution(n) {
+        const result = [];
+        const board = Array.from(Array(n), () => new Array(n).fill(-1));
+        let number = 1;
+        for (let i = 0; i < n; i++) board[i][0] = number++;
+        for (let i = 1; i < n; i++) board[n - 1][i] = number++;
+
+        drawBoard(board, number, n - 1, n - 1);
+        for (let y = 0; y < n; y++) {
+          for (let x = 0; x < n; x++) {
+            if (board[y][x] === -1) break;
+            result.push(board[y][x]);
+          }
+        }
+        return result;
+      }
+      solution(1);
+      solution(2);
+      solution(3);
+      solution(4);
+      solution(5);
+      solution(6);
+      //   solution(7);
+      //   solution(8);
+      //   solution(9);
+      //   solution(10);
+      //   solution(11);
+      //   solution(12);
+      //   solution(13);
+    </script>
+  </body>
+</html>

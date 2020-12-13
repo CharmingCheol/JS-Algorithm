@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const result = [];
+      function DAC(numbers, y, x, length) {
+        if (length === 1) return result.push(numbers[y][x]);
+        const target = numbers[y][x];
+        let flag = false;
+
+        for (let i = y; i < length + y; i++) {
+          for (let j = x; j < length + x; j++) {
+            if (numbers[i][j] !== target) {
+              for (let k = 0; k < 2; k++) {
+                for (let l = 0; l < 2; l++) {
+                  const next_y = y + parseInt(length / 2, 10) * k;
+                  const next_x = x + parseInt(length / 2, 10) * l;
+                  DAC(numbers, next_y, next_x, parseInt(length / 2, 10));
+                }
+              }
+              return;
+            }
+          }
+          if (flag) return;
+        }
+        result.push(target);
+      }
+
+      function solution(numbers) {
+        const length = numbers.length;
+        DAC(numbers, 0, 0, length);
+        const zero = result.filter((value) => value === 0).length;
+        return [zero, result.length - zero];
+      }
+      //   solution([
+      //     [1, 1, 0, 0],
+      //     [1, 0, 0, 0],
+      //     [1, 0, 0, 1],
+      //     [1, 1, 1, 1],
+      //   ]);
+      solution([
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 1, 1, 1, 1],
+        [0, 1, 0, 0, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1, 0, 0, 1],
+        [0, 0, 0, 0, 1, 1, 1, 1],
+      ]);
+    </script>
+  </body>
+</html>

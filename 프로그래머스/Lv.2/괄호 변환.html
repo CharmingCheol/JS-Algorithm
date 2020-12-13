@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function divideIndex(p) {
+        let openingBracket = 0;
+        let closingBracket = 0;
+        let result = 0;
+
+        for (let i = 0; i < p.length; i++) {
+          if (p[i] === "(") openingBracket += 1;
+          if (p[i] === ")") closingBracket += 1;
+          if (openingBracket === closingBracket) return i;
+        }
+      }
+
+      function bracket(p) {
+        if (p.length === 0) return "";
+        const index = divideIndex(p);
+        let u = p.slice(p, index + 1);
+        const v = p.slice(index + 1, p.length);
+        const stack = [];
+
+        for (let i = 0; i < u.length; i++) {
+          if (u[i] === "(") stack.push("(");
+          if (u[i] === ")") stack.pop();
+        }
+
+        if (stack.length === 0) {
+          return (u += bracket(v));
+        } else {
+          let temp = "(" + bracket(v) + ")";
+          if (u.length !== 2) {
+            const sliced = [...u]
+              .slice(1, u.length - 1)
+              .map((value) => (value === "(" ? ")" : "("))
+              .join("");
+            temp += sliced;
+          }
+          return temp;
+        }
+
+        return u;
+      }
+
+      function solution(p) {
+        return bracket(p);
+      }
+      solution("(()())()");
+      solution(")(");
+      solution("()))((()");
+    </script>
+  </body>
+</html>
