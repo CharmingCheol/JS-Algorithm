@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function calcPermutation(arr, string, result) {
+        if (string.length === 3) return result.push(string);
+        for (const str1 of arr) {
+          if (!string.includes(str1)) {
+            calcPermutation(arr, string + str1, result);
+          }
+        }
+        return result;
+      }
+
+      function solution(expression) {
+        var result = [];
+        const regExp = expression.split(/(\+|\-|\*)/);
+        const permutation = calcPermutation(["+", "-", "*"], "", []);
+
+        for (const operators of permutation) {
+          const temp = [...regExp];
+          for (const operator of operators) {
+            while (temp.includes(operator)) {
+              const index = temp.findIndex((value) => value === operator);
+              const calc = eval(temp[index - 1] + operator + temp[index + 1]);
+              temp[index - 1] = calc;
+              temp.splice(index, 2);
+            }
+          }
+          result.push(Math.abs(temp));
+        }
+        return Math.max(...result);
+      }
+      solution("100-200*300-500+20");
+    </script>
+  </body>
+</html>
