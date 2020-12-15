@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(A, B) {
+        const copyA = [...A].sort((a, b) => a - b);
+        const copyB = [...B].sort((a, b) => b - a);
+        let result = 0;
+        for (let index = 0; index < copyA.length; index += 1) {
+          result += copyA[index] * copyB[index];
+        }
+        return result;
+      }
+      solution([1, 4, 2], [5, 4, 4]);
+      solution([1, 2], [3, 4]);
+    </script>
+  </body>
+</html>

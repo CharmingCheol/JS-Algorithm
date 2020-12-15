@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(n) {
+        const dp = Array(n).fill(0);
+        dp[0] = dp[1] = 1;
+        for (let index = 2; index < n; index += 1) {
+          dp[index] = (dp[index - 1] + dp[index - 2]) % 1234567;
+        }
+        console.log(dp);
+        return dp[n - 1];
+      }
+      solution(3);
+      solution(5);
+    </script>
+  </body>
+</html>

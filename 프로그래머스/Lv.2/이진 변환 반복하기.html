@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(string) {
+        let level = 0;
+        let zeroCount = 0;
+        while (string[0] !== 1 && string.length !== 1) {
+          level += 1;
+          if (string.match(/0/g)) zeroCount += string.match(/0/g).length;
+          string = string.replace(/0/g, "").length;
+          string = string.toString(2);
+        }
+        return [level, zeroCount];
+      }
+      solution("110010101001");
+      solution("01110");
+      solution("1111111");
+    </script>
+  </body>
+</html>

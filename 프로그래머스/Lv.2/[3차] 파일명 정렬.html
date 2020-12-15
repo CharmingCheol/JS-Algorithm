@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(files) {
+        const compare = (a, b) => {
+          const splited = (file) => `${file}`.split(/([0-9]+)/);
+          const lowerCase = (string) => string.toLowerCase();
+
+          const left = splited(a);
+          const right = splited(b);
+          const leftHead = lowerCase(left[0]);
+          const rightHead = lowerCase(right[0]);
+          const compareToHead = leftHead.localeCompare(rightHead);
+
+          if (compareToHead === 0) {
+            const leftNumber = parseInt(left[1], 10);
+            const rightNumber = parseInt(right[1], 10);
+            if (leftNumber === rightNumber) {
+              return 0;
+            } else if (leftNumber > rightNumber) {
+              return 1;
+            } else {
+              return -1;
+            }
+          } else if (compareToHead === 1) {
+            return 1;
+          } else {
+            return -1;
+          }
+        };
+
+        const copyFiles = [...files].sort((a, b) => {
+          const result = compare(a, b);
+          return result;
+        });
+        return copyFiles;
+      }
+      solution([
+        "img12.png",
+        "img10.png",
+        "img02.png",
+        "img1.png",
+        "IMG01.GIF",
+        "img2.JPG",
+      ]);
+      solution([
+        "F-5 Freedom Fighter",
+        "B-50 Superfortress",
+        "A-10 Thunderbolt II",
+        "F-14 Tomcat",
+      ]);
+    </script>
+  </body>
+</html>
