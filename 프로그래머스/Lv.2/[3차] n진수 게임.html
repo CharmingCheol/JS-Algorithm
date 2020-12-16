@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const list = [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+      ];
+
+      function solution(n, t, m, p) {
+        let number = "";
+        let result = "";
+
+        for (let i = 0; i <= t * m; i += 1) {
+          let temp = "";
+          let index = i;
+          if (index === 0) {
+            number += "0";
+          } else {
+            while (index !== 0) {
+              temp = list[index % n] + temp;
+              index = parseInt(index / n, 10);
+            }
+            number += temp;
+          }
+        }
+
+        for (let i = p - 1; i < number.length; i += m) {
+          if (result.length === t) break;
+          result += number[i];
+        }
+
+        return result;
+      }
+      solution(2, 4, 2, 1);
+      solution(16, 16, 2, 1);
+      solution(16, 16, 2, 2);
+    </script>
+  </body>
+</html>
