@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function calcTimeGap(start, end) {
+        const totalTime = (time) =>
+          time.split(":").reduce((acc, value, index) => {
+            return index === 0
+              ? parseInt(value, 10) * 60 + acc
+              : parseInt(value, 10) + acc;
+          }, 0);
+        const startTime = totalTime(start);
+        const endTime = totalTime(end);
+        return endTime - startTime;
+      }
+
+      function adjustToMelody(melody, timeGap) {
+        const replaceMelody = melody.replace(
+          /[A-Z]#/g,
+          (s) => s.toLowerCase()[0]
+        );
+        const length = replaceMelody.length;
+        const quotient = parseInt(timeGap / length, 10);
+        const remainder = timeGap % length;
+        return length <= timeGap
+          ? replaceMelody.repeat(quotient) + replaceMelody.slice(0, remainder)
+          : replaceMelody.slice(0, remainder);
+      }
+
+      function makeMelody(musicinfos) {
+        const answer = musicinfos.map((info) => {
+          const [start, end, title, melody] = info.split(",");
+          const timeGap = calcTimeGap(start, end);
+          const adjustedMelody = adjustToMelody(melody, timeGap);
+          return [timeGap, title, adjustedMelody];
+        });
+        return answer;
+      }
+
+      function solution(m, musicinfos) {
+        const replaceMelody = m.replace(/[A-Z]#/g, (s) => s.toLowerCase()[0]);
+        const replaceMusicinfos = makeMelody(musicinfos);
+        const result = [];
+        for (let i = 0; i < replaceMusicinfos.length; i += 1) {
+          const [time, title, melody] = replaceMusicinfos[i];
+          if (melody.includes(replaceMelody)) result.push({ time, title });
+        }
+        const sorted = result.sort((a, b) => {
+          const compare = (a, b) => {
+            if (a.time < b.time) {
+              return 1;
+            } else if (a.time === b.time) {
+              return 0;
+            }
+            return -1;
+          };
+          return compare(a, b);
+        });
+        return result.length ? sorted[0].title : "(None)";
+      }
+      solution("ABCDEFG", [
+        "12:00,12:14,HELLO,CDEFGAB",
+        "13:00,13:05,WORLD,ABCDEF",
+      ]);
+      solution("CC#BCC#BCC#BCC#B", [
+        "03:00,03:30,FOO,CC#B",
+        "04:00,04:08,BAR,CC#BCC#BCC#B",
+      ]);
+      solution("ABC", [
+        "12:00,12:14,HELLO,C#DEFGAB",
+        "13:00,13:05,WORLD,ABCDEF",
+      ]);
+      solution("A#", ["13:00,13:02,HAPPY,B#A#"]);
+    </script>
+  </body>
+</html>

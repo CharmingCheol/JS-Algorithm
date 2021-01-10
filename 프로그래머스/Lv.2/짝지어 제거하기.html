@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(s) {
+        const stack = [];
+        stack.push(s[0]);
+        for (let i = 1; i < s.length; i += 1) {
+          s[i] === stack[stack.length - 1] ? stack.pop() : stack.push(s[i]);
+        }
+        return stack.length ? 0 : 1;
+      }
+      solution("baabaa");
+      solution("cdcd");
+    </script>
+  </body>
+</html>

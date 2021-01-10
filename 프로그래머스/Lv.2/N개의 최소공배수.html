@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 두 수의 최대공약수
+      const gcd = (a, b) => {
+        while (b !== 0) {
+          const temp = a % b;
+          a = b;
+          b = temp;
+        }
+        return a;
+      };
+      // 두 수의 최소공배수
+      const lcm = (a, b) => (a * b) / gcd(a, b);
+
+      function solution(arr) {
+        const dp = Array(5).fill(0);
+        dp[0] = 1;
+        for (let i = 0; i < arr.length; i += 1) {
+          dp[i + 1] = lcm(arr[i], dp[i]);
+        }
+        return dp[arr.length];
+      }
+      solution([2, 6, 8, 14]);
+    </script>
+  </body>
+</html>
