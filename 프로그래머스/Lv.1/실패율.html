@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(N, stages) {
+        let players = stages.length;
+        const map = new Map();
+        for (let i = 1; i <= N; i += 1) map.set(i, 0);
+        for (let i = 0; i < stages.length; i += 1) {
+          if (stages[i] <= N) map.set(stages[i], map.get(stages[i]) + 1);
+        }
+        for (let i = 1; i <= N; i += 1) {
+          const value = map.get(i);
+          map.set(i, value / players);
+          players -= value;
+        }
+        const result = [...map]
+          .sort((a, b) => {
+            if (a[1] === b[1]) return a[0] - b[0];
+            return b[1] - a[1];
+          })
+          .map((value) => value[0]);
+        return result;
+      }
+      solution(5, [2, 1, 2, 6, 2, 4, 3, 3]);
+      solution(4, [4, 4, 4, 4, 4]);
+    </script>
+  </body>
+</html>
