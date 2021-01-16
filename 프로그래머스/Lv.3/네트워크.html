@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function DFS(y, computers) {
+        for (let x = 0; x < computers.length; x += 1) {
+          if (computers[y][x]) {
+            computers[y][x] = 0;
+            computers[x][y] = 0;
+            DFS(x, computers);
+          }
+        }
+      }
+
+      function solution(n, computers) {
+        let result = 0;
+        for (let y = 0; y < n; y += 1) {
+          for (let x = 0; x < n; x += 1) {
+            if (computers[y][x]) {
+              result += 1;
+              computers[y][x] = 0;
+              computers[x][y] = 0;
+              DFS(x, computers);
+            }
+          }
+        }
+        return result;
+      }
+      solution(5, [
+        [1, 0, 1, 1, 1],
+        [0, 1, 0, 0, 1],
+        [1, 0, 1, 0, 0],
+        [1, 0, 0, 1, 0],
+        [1, 1, 0, 0, 1],
+      ]);
+      solution(3, [
+        [1, 1, 0],
+        [1, 1, 0],
+        [0, 0, 1],
+      ]);
+      solution(3, [
+        [1, 0, 1],
+        [0, 1, 1],
+        [1, 1, 1],
+      ]);
+    </script>
+  </body>
+</html>

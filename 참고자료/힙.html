@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class MaxHeapTree {
+        constructor() {
+          this._items = [];
+        }
+
+        get items() {
+          return this._items;
+        }
+
+        get root() {
+          return _items[0];
+        }
+
+        insert(key) {
+          this._items.push(key);
+
+          let childIndex = this._items.length - 1;
+          let child = this._items[childIndex];
+
+          let parentIndex = Math.floor(childIndex / 2) || 0;
+          let parent = this._items[parentIndex];
+
+          let newChildIndex;
+          while (parent < child) {
+            newChildIndex = parentIndex;
+            this._items[newChildIndex] = child;
+            this._items[childIndex] = parent;
+
+            parentIndex = Math.floor(newChildIndex / 2) || 0;
+            parent = this._items[parentIndex];
+            childIndex = newChildIndex;
+          }
+        }
+
+        remove() {
+          this._items[0] = this._items.pop();
+
+          let parentIndex = 0;
+          let parent = this._items[parentIndex];
+
+          let leftChild = this._items[parentIndex * 2];
+          let rightChild = this._items[parentIndex * 2 + 1];
+
+          let bigChild = leftChild > rightChild ? leftChild : rightChild;
+          let bigChildIndex = this._items.indexOf(bigChild);
+
+          let newParentIndex;
+          while (parent < bigChild) {
+            newParentIndex = bigChildIndex;
+            this._items[newParentIndex] = parent;
+            this._items[parentIndex] = bigChild;
+
+            leftChild = this._items[newParentIndex * 2];
+            rightChild = this._items[newParentIndex * 2 + 1];
+
+            bigChild = leftChild > rightChild ? leftChild : rightChild;
+            bigChildIndex = this._items.indexOf(bigChild);
+            parentIndex = newParentIndex;
+          }
+        }
+      }
+
+      const heap = new MaxHeapTree();
+      heap.insert(5);
+      heap.insert(10);
+      heap.insert(15);
+      heap.insert(21);
+      heap.insert(9);
+      heap.insert(6);
+      heap.insert(70);
+      heap.insert(39);
+      heap.insert(129);
+      console.log(heap.items); // [1259, 70, 39, 21, 9, 6, 10, 15, 5]
+      heap.remove();
+      console.log(heap.items); // [70, 39, 9, 21, 5, 6, 10, 15]
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function solution(n, money) {
+        const dp = Array(n + 1).fill(0);
+        for (let i = 0; i < money.length; i += 1) {
+          const now = money[i];
+          for (let j = now; j < n + 1; j += 1) {
+            if (now === j) {
+              dp[now] += 1;
+            } else {
+              dp[j] += dp[j - now];
+            }
+          }
+        }
+        return dp[n];
+      }
+      solution(10, [1, 2, 5]);
+    </script>
+  </body>
+</html>
